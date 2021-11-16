@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "parcel build src/index.html"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -14,10 +13,6 @@
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "fetch-jsonp": "^1.2.1",
-    "request": "^2.88.2",
-    "parcel-bundler": "^1.12.5"
-  },
-  "engines": {
-    "node": "12.x"
+    "request": "^2.88.2"
   }
 }
