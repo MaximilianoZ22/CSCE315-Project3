@@ -112,3 +112,5 @@ function showAnimals(animals) {
     results.appendChild(div);
   });
 }
+
+// Filter: Age, Gender, Size
