@@ -63,14 +63,40 @@ function fetchPets (e){
 
   const animal = document.querySelector('#animal').value;
   const zip = document.querySelector('#zip').value;
-  console.log(animal);
-  console.log(zip);
+  
+  const ageBaby = document.querySelector('#baby').checked;
+  const ageYoung = document.querySelector('#young').checked;
+  const ageAdult = document.querySelector('#adult').checked;
+  const ageSenior = document.querySelector('#senior').checked;
+
+  const genderMale = document.querySelector('#male').checked;
+  const genderFemale = document.querySelector('#female').checked;
+
+  const sizeSmall = document.querySelector('#small').checked;
+  const sizeMedium = document.querySelector('#medium').checked;
+  const sizeLarge = document.querySelector('#large').checked;
+
+  var type = 'type=' + animal;
+  
+  var location = '&location=' + zip;
+  var age = '';
+  var gender = '';
+  var size = '';
+
+  if(genderMale ^ genderFemale) {
+    console.log("with gender");
+    if(genderMale) {
+      gender = '&gender=male'
+    } else {
+      gender = '&gender=female'
+    }
+  }
 
   // requesting pets
   var request = require('request');
   var options = {
     'method': 'GET',
-    'url': 'https://api.petfinder.com/v2/animals?location=' + zip + '&type=' + animal,
+    'url': 'https://api.petfinder.com/v2/animals?' + type + location + age + gender + size,
     'headers': {
       'Authorization': 'Bearer ' + PetFinder_Token
     }
@@ -90,14 +116,14 @@ function showAnimals(animals) {
   results.innerHTML = '';
 
   animals.forEach((pet) => {
-    console.log(pet);
+    // console.log(pet);
 
     const div = document.createElement('div');
     div.classList.add('card', 'card-body', 'mb-3');
     div.innerHTML = `
       <div class="row">
         <div class = "col-sm-6">
-          <h4>${pet.name} (${pet.age})</h4>
+          <h4>${pet.name} (${pet.age}) ${pet.gender}</h4>
           <p>${pet.breeds.primary}</p>
           <p>${pet.contact.address.address1}, ${pet.contact.address.city} ${pet.contact.address.state} ${pet.contact.address.postcode}</p>
         </div>

@@ -110139,14 +110139,37 @@ function fetchPets(e) {
   e.preventDefault();
   var animal = document.querySelector('#animal').value;
   var zip = document.querySelector('#zip').value;
-  console.log(animal);
-  console.log(zip); // requesting pets
+  var ageBaby = document.querySelector('#baby').checked;
+  var ageYoung = document.querySelector('#young').checked;
+  var ageAdult = document.querySelector('#adult').checked;
+  var ageSenior = document.querySelector('#senior').checked;
+  var genderMale = document.querySelector('#male').checked;
+  var genderFemale = document.querySelector('#female').checked;
+  var sizeSmall = document.querySelector('#small').checked;
+  var sizeMedium = document.querySelector('#medium').checked;
+  var sizeLarge = document.querySelector('#large').checked;
+  var type = 'type=' + animal;
+  var location = '&location=' + zip;
+  var age = '';
+  var gender = '';
+  var size = '';
+
+  if (genderMale ^ genderFemale) {
+    console.log("with gender");
+
+    if (genderMale) {
+      gender = '&gender=male';
+    } else {
+      gender = '&gender=female';
+    }
+  } // requesting pets
+
 
   var request = require('request');
 
   var options = {
     'method': 'GET',
-    'url': 'https://api.petfinder.com/v2/animals?location=' + zip + '&type=' + animal,
+    'url': 'https://api.petfinder.com/v2/animals?' + type + location + age + gender + size,
     'headers': {
       'Authorization': 'Bearer ' + PetFinder_Token
     }
@@ -110164,10 +110187,10 @@ function showAnimals(animals) {
   var results = document.querySelector('#results');
   results.innerHTML = '';
   animals.forEach(function (pet) {
-    console.log(pet);
+    // console.log(pet);
     var div = document.createElement('div');
     div.classList.add('card', 'card-body', 'mb-3');
-    div.innerHTML = "\n      <div class=\"row\">\n        <div class = \"col-sm-6\">\n          <h4>".concat(pet.name, " (").concat(pet.age, ")</h4>\n          <p>").concat(pet.breeds.primary, "</p>\n          <p>").concat(pet.contact.address.address1, ", ").concat(pet.contact.address.city, " ").concat(pet.contact.address.state, " ").concat(pet.contact.address.postcode, "</p>\n        </div>\n        <div class = \"col-sm-6\">\n          ").concat(pet.photos[0] ? "\n          <img class=\"img-fluid rounded-circle mt-2\" src=\"".concat(pet.photos[0].medium, "\">\n          ") : "", "\n        </div>\n      </div>\n    ");
+    div.innerHTML = "\n      <div class=\"row\">\n        <div class = \"col-sm-6\">\n          <h4>".concat(pet.name, " (").concat(pet.age, ") ").concat(pet.gender, "</h4>\n          <p>").concat(pet.breeds.primary, "</p>\n          <p>").concat(pet.contact.address.address1, ", ").concat(pet.contact.address.city, " ").concat(pet.contact.address.state, " ").concat(pet.contact.address.postcode, "</p>\n        </div>\n        <div class = \"col-sm-6\">\n          ").concat(pet.photos[0] ? "\n          <img class=\"img-fluid rounded-circle mt-2\" src=\"".concat(pet.photos[0].medium, "\">\n          ") : "", "\n        </div>\n      </div>\n    ");
     results.appendChild(div);
   });
 } // Filter: Age, Gender, Size
