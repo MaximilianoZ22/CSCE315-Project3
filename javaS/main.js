@@ -1,18 +1,13 @@
+// html elements
 const petForm = document.querySelector('#pet-form');
 
+// event listeners
+window.addEventListener('load', onPageLoad);
 petForm.addEventListener('submit', fetchPets); 
 
-//fetch pets from the api for adoption
+var PetFinder_Token;
 
-function fetchPets (e){
-  e.preventDefault();
-
-
-  const animal = document.querySelector('#animal').value;
-  const zip = document.querySelector('#zip').value;
-  console.log(animal);
-  console.log(zip);
-
+function onPageLoad (e) {
   // requesting access token
   var request = require('request');
   var options = {
@@ -31,24 +26,35 @@ function fetchPets (e){
     if (error) throw new Error(error);
 
     let res_json = JSON.parse(response.body);
-    let token = res_json['access_token'];
-    console.log(token);
-    
-    // requesting pets
-    var request = require('request');
-    var options = {
-      'method': 'GET',
-      'url': 'https://api.petfinder.com/v2/animals?location=' + zip + '&type=' + animal,
-      'headers': {
-        'Authorization': 'Bearer ' + token
-      }
-    };
-    request(options, function (error, response) {
-      if (error) throw new Error(error);
-      let petres_json = JSON.parse(response.body);
-      console.log(petres_json.animals);
-      showAnimals(petres_json.animals);
-    });
+    PetFinder_Token = res_json['access_token'];
+  });
+  
+}
+
+//fetch pets from the api for adoption
+
+function fetchPets (e){
+  e.preventDefault();
+
+  const animal = document.querySelector('#animal').value;
+  const zip = document.querySelector('#zip').value;
+  console.log(animal);
+  console.log(zip);
+
+  // requesting pets
+  var request = require('request');
+  var options = {
+    'method': 'GET',
+    'url': 'https://api.petfinder.com/v2/animals?location=' + zip + '&type=' + animal,
+    'headers': {
+      'Authorization': 'Bearer ' + PetFinder_Token
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    let petres_json = JSON.parse(response.body);
+    console.log(petres_json.animals);
+    showAnimals(petres_json.animals);
   });
 }
 

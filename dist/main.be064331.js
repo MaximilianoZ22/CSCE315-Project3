@@ -110079,16 +110079,15 @@ Object.defineProperty(request, 'debug', {
   }
 });
 },{"extend":"node_modules/extend/index.js","./lib/cookies":"node_modules/request/lib/cookies.js","./lib/helpers":"node_modules/request/lib/helpers.js","./request":"node_modules/request/request.js"}],"javaS/main.js":[function(require,module,exports) {
-var petForm = document.querySelector('#pet-form');
-petForm.addEventListener('submit', fetchPets); //fetch pets from the api for adoption
+// html elements
+var petForm = document.querySelector('#pet-form'); // event listeners
 
-function fetchPets(e) {
-  e.preventDefault();
-  var animal = document.querySelector('#animal').value;
-  var zip = document.querySelector('#zip').value;
-  console.log(animal);
-  console.log(zip); // requesting access token
+window.addEventListener('load', onPageLoad);
+petForm.addEventListener('submit', fetchPets);
+var PetFinder_Token;
 
+function onPageLoad(e) {
+  // requesting access token
   var request = require('request');
 
   var options = {
@@ -110106,24 +110105,32 @@ function fetchPets(e) {
   request(options, function (error, response) {
     if (error) throw new Error(error);
     var res_json = JSON.parse(response.body);
-    var token = res_json['access_token'];
-    console.log(token); // requesting pets
+    PetFinder_Token = res_json['access_token'];
+  });
+} //fetch pets from the api for adoption
 
-    var request = require('request');
 
-    var options = {
-      'method': 'GET',
-      'url': 'https://api.petfinder.com/v2/animals?location=' + zip + '&type=' + animal,
-      'headers': {
-        'Authorization': 'Bearer ' + token
-      }
-    };
-    request(options, function (error, response) {
-      if (error) throw new Error(error);
-      var petres_json = JSON.parse(response.body);
-      console.log(petres_json.animals);
-      showAnimals(petres_json.animals);
-    });
+function fetchPets(e) {
+  e.preventDefault();
+  var animal = document.querySelector('#animal').value;
+  var zip = document.querySelector('#zip').value;
+  console.log(animal);
+  console.log(zip); // requesting pets
+
+  var request = require('request');
+
+  var options = {
+    'method': 'GET',
+    'url': 'https://api.petfinder.com/v2/animals?location=' + zip + '&type=' + animal,
+    'headers': {
+      'Authorization': 'Bearer ' + PetFinder_Token
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    var petres_json = JSON.parse(response.body);
+    console.log(petres_json.animals);
+    showAnimals(petres_json.animals);
   });
 } // Show Pets
 
@@ -110167,7 +110174,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57644" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49758" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
