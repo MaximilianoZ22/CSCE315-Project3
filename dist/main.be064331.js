@@ -110105,7 +110105,32 @@ function onPageLoad(e) {
   request(options, function (error, response) {
     if (error) throw new Error(error);
     var res_json = JSON.parse(response.body);
-    PetFinder_Token = res_json['access_token'];
+    PetFinder_Token = res_json['access_token']; // requesting all pet types
+
+    var request = require('request');
+
+    var options = {
+      'method': 'GET',
+      'url': 'https://api.petfinder.com/v2/types',
+      'headers': {
+        'Authorization': 'Bearer ' + PetFinder_Token
+      }
+    };
+    request(options, function (error, response) {
+      if (error) throw new Error(error);
+      var typeres_json = JSON.parse(response.body);
+      loadPetTypes(typeres_json.types);
+    });
+  });
+} // Load available pet drop down
+
+
+function loadPetTypes(petTypes) {
+  select = document.getElementById('animal');
+  petTypes.forEach(function (type) {
+    option = document.createElement('option');
+    option.value = option.text = type.name;
+    select.add(option);
   });
 } //fetch pets from the api for adoption
 
