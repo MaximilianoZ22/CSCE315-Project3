@@ -83,6 +83,50 @@ function fetchPets (e){
   var gender = '';
   var size = '';
 
+  if(!(ageBaby && ageYoung && ageAdult && ageSenior) && !(!ageBaby && !ageYoung && !ageAdult && !ageSenior)) {
+    console.log("with age");
+
+    age += '&age=';
+
+    var numoptions = 0;
+
+    if(ageBaby){
+      if(numoptions > 0) {
+        age += ',';
+      }
+
+      age += 'baby'
+      numoptions += 1;
+    }
+
+    if(ageYoung){
+      if(numoptions > 0) {
+        age += ',';
+      }
+
+      age += 'young'
+      numoptions += 1;
+    }
+
+    if(ageAdult){
+      if(numoptions > 0) {
+        age += ',';
+      }
+
+      age += 'adult'
+      numoptions += 1;
+    }
+
+    if(ageSenior){
+      if(numoptions > 0) {
+        age += ',';
+      }
+
+      age += 'senior'
+      numoptions += 1;
+    }
+  }
+
   if(genderMale ^ genderFemale) {
     console.log("with gender");
     if(genderMale) {
@@ -91,6 +135,8 @@ function fetchPets (e){
       gender = '&gender=female'
     }
   }
+
+  console.log('https://api.petfinder.com/v2/animals?' + type + location + age + gender + size);
 
   // requesting pets
   var request = require('request');
