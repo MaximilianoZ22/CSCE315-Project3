@@ -110079,16 +110079,15 @@ Object.defineProperty(request, 'debug', {
   }
 });
 },{"extend":"node_modules/extend/index.js","./lib/cookies":"node_modules/request/lib/cookies.js","./lib/helpers":"node_modules/request/lib/helpers.js","./request":"node_modules/request/request.js"}],"javaS/main.js":[function(require,module,exports) {
-var petForm = document.querySelector('#pet-form');
-petForm.addEventListener('submit', fetchPets); //fetch pets from the api for adoption
+// html elements
+var petForm = document.querySelector('#pet-form'); // event listeners
 
-function fetchPets(e) {
-  e.preventDefault();
-  var animal = document.querySelector('#animal').value;
-  var zip = document.querySelector('#zip').value;
-  console.log(animal);
-  console.log(zip); // requesting access token
+window.addEventListener('load', onPageLoad);
+petForm.addEventListener('submit', fetchPets);
+var PetFinder_Token;
 
+function onPageLoad(e) {
+  // requesting access token
   var request = require('request');
 
   var options = {
@@ -110106,24 +110105,152 @@ function fetchPets(e) {
   request(options, function (error, response) {
     if (error) throw new Error(error);
     var res_json = JSON.parse(response.body);
-    var token = res_json['access_token'];
-    console.log(token); // requesting pets
+    PetFinder_Token = res_json['access_token']; // requesting all pet types
 
     var request = require('request');
 
     var options = {
       'method': 'GET',
-      'url': 'https://api.petfinder.com/v2/animals?location=' + zip + '&type=' + animal,
+      'url': 'https://api.petfinder.com/v2/types',
       'headers': {
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + PetFinder_Token
       }
     };
     request(options, function (error, response) {
       if (error) throw new Error(error);
-      var petres_json = JSON.parse(response.body);
-      console.log(petres_json.animals);
-      showAnimals(petres_json.animals);
+      var typeres_json = JSON.parse(response.body);
+      loadPetTypes(typeres_json.types);
     });
+  });
+} // Load available pet drop down
+
+
+function loadPetTypes(petTypes) {
+  select = document.getElementById('animal');
+  petTypes.forEach(function (type) {
+    option = document.createElement('option');
+    option.value = option.text = type.name;
+    select.add(option);
+  });
+} //fetch pets from the api for adoption
+
+
+function fetchPets(e) {
+  e.preventDefault();
+  var animal = document.querySelector('#animal').value;
+  var zip = document.querySelector('#zip').value;
+  var ageBaby = document.querySelector('#baby').checked;
+  var ageYoung = document.querySelector('#young').checked;
+  var ageAdult = document.querySelector('#adult').checked;
+  var ageSenior = document.querySelector('#senior').checked;
+  var genderMale = document.querySelector('#male').checked;
+  var genderFemale = document.querySelector('#female').checked;
+  var sizeSmall = document.querySelector('#small').checked;
+  var sizeMedium = document.querySelector('#medium').checked;
+  var sizeLarge = document.querySelector('#large').checked;
+  var type = 'type=' + animal;
+  var location = '&location=' + zip;
+  var age = '';
+  var gender = '';
+  var size = '';
+
+  if (!(ageBaby && ageYoung && ageAdult && ageSenior) && !(!ageBaby && !ageYoung && !ageAdult && !ageSenior)) {
+    age += '&age=';
+    var numoptions = 0;
+
+    if (ageBaby) {
+      if (numoptions > 0) {
+        age += ',';
+      }
+
+      age += 'baby';
+      numoptions += 1;
+    }
+
+    if (ageYoung) {
+      if (numoptions > 0) {
+        age += ',';
+      }
+
+      age += 'young';
+      numoptions += 1;
+    }
+
+    if (ageAdult) {
+      if (numoptions > 0) {
+        age += ',';
+      }
+
+      age += 'adult';
+      numoptions += 1;
+    }
+
+    if (ageSenior) {
+      if (numoptions > 0) {
+        age += ',';
+      }
+
+      age += 'senior';
+      numoptions += 1;
+    }
+  }
+
+  if (genderMale ^ genderFemale) {
+    if (genderMale) {
+      gender = '&gender=male';
+    } else {
+      gender = '&gender=female';
+    }
+  }
+
+  if (!(sizeSmall && sizeMedium && sizeLarge) && !(!sizeSmall && !sizeMedium && !sizeLarge)) {
+    size += '&size=';
+    var numoptions = 0;
+
+    if (sizeSmall) {
+      if (numoptions > 0) {
+        size += ',';
+      }
+
+      size += 'small';
+      numoptions += 1;
+    }
+
+    if (sizeMedium) {
+      if (numoptions > 0) {
+        size += ',';
+      }
+
+      size += 'medium';
+      numoptions += 1;
+    }
+
+    if (sizeLarge) {
+      if (numoptions > 0) {
+        size += ',';
+      }
+
+      size += 'large,xlarge';
+      numoptions += 1;
+    }
+  }
+
+  console.log('https://api.petfinder.com/v2/animals?' + type + location + age + gender + size); // requesting pets
+
+  var request = require('request');
+
+  var options = {
+    'method': 'GET',
+    'url': 'https://api.petfinder.com/v2/animals?' + type + location + age + gender + size,
+    'headers': {
+      'Authorization': 'Bearer ' + PetFinder_Token
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    var petres_json = JSON.parse(response.body);
+    console.log(petres_json.animals);
+    showAnimals(petres_json.animals);
   });
 } // Show Pets
 
@@ -110132,10 +110259,9 @@ function showAnimals(animals) {
   var results = document.querySelector('#results');
   results.innerHTML = '';
   animals.forEach(function (pet) {
-    console.log(pet);
     var div = document.createElement('div');
     div.classList.add('card', 'card-body', 'mb-3');
-    div.innerHTML = "\n      <div class=\"row\">\n        <div class = \"col-sm-6\">\n          <h4>".concat(pet.name, " (").concat(pet.age, ")</h4>\n          <p>").concat(pet.breeds.primary, "</p>\n          <p>").concat(pet.contact.address.address1, ", ").concat(pet.contact.address.city, " ").concat(pet.contact.address.state, " ").concat(pet.contact.address.postcode, "</p>\n        </div>\n        <div class = \"col-sm-6\">\n          ").concat(pet.photos[0] ? "\n          <img class=\"img-fluid rounded-circle mt-2\" src=\"".concat(pet.photos[0].medium, "\">\n          ") : "", "\n        </div>\n      </div>\n    ");
+    div.innerHTML = "\n      <div class=\"row\">\n        <div class = \"col-sm-6\">\n          <h4>".concat(pet.name, " (").concat(pet.age, ") (").concat(pet.gender, ") (").concat(pet.size, ")</h4>\n          <p>").concat(pet.breeds.primary, "</p>\n          <p>").concat(pet.contact.address.address1, ", ").concat(pet.contact.address.city, " ").concat(pet.contact.address.state, " ").concat(pet.contact.address.postcode, "</p>\n        </div>\n        <div class = \"col-sm-6\">\n          ").concat(pet.photos[0] ? "\n          <img class=\"img-fluid rounded-circle mt-2\" src=\"".concat(pet.photos[0].medium, "\">\n          ") : "", "\n        </div>\n      </div>\n    ");
     results.appendChild(div);
   });
 }
@@ -110167,7 +110293,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56525" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56225" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
