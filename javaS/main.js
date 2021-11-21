@@ -84,8 +84,6 @@ function fetchPets (e){
   var size = '';
 
   if(!(ageBaby && ageYoung && ageAdult && ageSenior) && !(!ageBaby && !ageYoung && !ageAdult && !ageSenior)) {
-    console.log("with age");
-
     age += '&age=';
 
     var numoptions = 0;
@@ -128,11 +126,43 @@ function fetchPets (e){
   }
 
   if(genderMale ^ genderFemale) {
-    console.log("with gender");
     if(genderMale) {
       gender = '&gender=male'
     } else {
       gender = '&gender=female'
+    }
+  }
+
+  if(!(sizeSmall && sizeMedium && sizeLarge) && !(!sizeSmall && !sizeMedium && !sizeLarge)) {
+    size += '&size=';
+
+    var numoptions = 0;
+
+    if(sizeSmall){
+      if(numoptions > 0) {
+        size += ',';
+      }
+
+      size += 'small'
+      numoptions += 1;
+    }
+
+    if(sizeMedium){
+      if(numoptions > 0) {
+        size += ',';
+      }
+
+      size += 'medium'
+      numoptions += 1;
+    }
+
+    if(sizeLarge){
+      if(numoptions > 0) {
+        size += ',';
+      }
+
+      size += 'large,xlarge'
+      numoptions += 1;
     }
   }
 
@@ -162,14 +192,13 @@ function showAnimals(animals) {
   results.innerHTML = '';
 
   animals.forEach((pet) => {
-    // console.log(pet);
 
     const div = document.createElement('div');
     div.classList.add('card', 'card-body', 'mb-3');
     div.innerHTML = `
       <div class="row">
         <div class = "col-sm-6">
-          <h4>${pet.name} (${pet.age}) ${pet.gender}</h4>
+          <h4>${pet.name} (${pet.age}) (${pet.gender}) (${pet.size})</h4>
           <p>${pet.breeds.primary}</p>
           <p>${pet.contact.address.address1}, ${pet.contact.address.city} ${pet.contact.address.state} ${pet.contact.address.postcode}</p>
         </div>
@@ -184,5 +213,3 @@ function showAnimals(animals) {
     results.appendChild(div);
   });
 }
-
-// Filter: Age, Gender, Size

@@ -110155,7 +110155,6 @@ function fetchPets(e) {
   var size = '';
 
   if (!(ageBaby && ageYoung && ageAdult && ageSenior) && !(!ageBaby && !ageYoung && !ageAdult && !ageSenior)) {
-    console.log("with age");
     age += '&age=';
     var numoptions = 0;
 
@@ -110197,12 +110196,42 @@ function fetchPets(e) {
   }
 
   if (genderMale ^ genderFemale) {
-    console.log("with gender");
-
     if (genderMale) {
       gender = '&gender=male';
     } else {
       gender = '&gender=female';
+    }
+  }
+
+  if (!(sizeSmall && sizeMedium && sizeLarge) && !(!sizeSmall && !sizeMedium && !sizeLarge)) {
+    size += '&size=';
+    var numoptions = 0;
+
+    if (sizeSmall) {
+      if (numoptions > 0) {
+        size += ',';
+      }
+
+      size += 'small';
+      numoptions += 1;
+    }
+
+    if (sizeMedium) {
+      if (numoptions > 0) {
+        size += ',';
+      }
+
+      size += 'medium';
+      numoptions += 1;
+    }
+
+    if (sizeLarge) {
+      if (numoptions > 0) {
+        size += ',';
+      }
+
+      size += 'large,xlarge';
+      numoptions += 1;
     }
   }
 
@@ -110230,13 +110259,12 @@ function showAnimals(animals) {
   var results = document.querySelector('#results');
   results.innerHTML = '';
   animals.forEach(function (pet) {
-    // console.log(pet);
     var div = document.createElement('div');
     div.classList.add('card', 'card-body', 'mb-3');
-    div.innerHTML = "\n      <div class=\"row\">\n        <div class = \"col-sm-6\">\n          <h4>".concat(pet.name, " (").concat(pet.age, ") ").concat(pet.gender, "</h4>\n          <p>").concat(pet.breeds.primary, "</p>\n          <p>").concat(pet.contact.address.address1, ", ").concat(pet.contact.address.city, " ").concat(pet.contact.address.state, " ").concat(pet.contact.address.postcode, "</p>\n        </div>\n        <div class = \"col-sm-6\">\n          ").concat(pet.photos[0] ? "\n          <img class=\"img-fluid rounded-circle mt-2\" src=\"".concat(pet.photos[0].medium, "\">\n          ") : "", "\n        </div>\n      </div>\n    ");
+    div.innerHTML = "\n      <div class=\"row\">\n        <div class = \"col-sm-6\">\n          <h4>".concat(pet.name, " (").concat(pet.age, ") (").concat(pet.gender, ") (").concat(pet.size, ")</h4>\n          <p>").concat(pet.breeds.primary, "</p>\n          <p>").concat(pet.contact.address.address1, ", ").concat(pet.contact.address.city, " ").concat(pet.contact.address.state, " ").concat(pet.contact.address.postcode, "</p>\n        </div>\n        <div class = \"col-sm-6\">\n          ").concat(pet.photos[0] ? "\n          <img class=\"img-fluid rounded-circle mt-2\" src=\"".concat(pet.photos[0].medium, "\">\n          ") : "", "\n        </div>\n      </div>\n    ");
     results.appendChild(div);
   });
-} // Filter: Age, Gender, Size
+}
 },{"request":"node_modules/request/index.js"}],"../../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
