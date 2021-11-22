@@ -110431,7 +110431,7 @@ request(options, function (error, response) {
 });
 
 function loadPetTypes(petTypes) {
-  select = document.getElementById('animal');
+  select = document.getElementById('Cat');
   petTypes.forEach(function (type) {
     option = document.createElement('option');
     option.value = option.text = type.name;

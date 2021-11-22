@@ -13,7 +13,7 @@ request(options, function (error, response) {
 });
 
 function loadPetTypes(petTypes) {
-  select = document.getElementById('animal');
+  select = document.getElementById('Cat');
 
   petTypes.forEach((type) => {
     option = document.createElement( 'option' );
