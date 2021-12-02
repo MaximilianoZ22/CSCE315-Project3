@@ -110040,6 +110040,7 @@ function fetchPets(e) {
   e.preventDefault();
   var animal = document.querySelector('#animal').value;
   var zip = document.querySelector('#zip').value;
+  var rad = document.querySelector('#rad').value;
   var ageBaby = document.querySelector('#baby').checked;
   var ageYoung = document.querySelector('#young').checked;
   var ageAdult = document.querySelector('#adult').checked;
@@ -110051,9 +110052,14 @@ function fetchPets(e) {
   var sizeLarge = document.querySelector('#large').checked;
   var type = 'type=' + animal;
   var location = '&location=' + zip;
+  var radius = '';
   var age = '';
   var gender = '';
   var size = '';
+
+  if (rad != "any") {
+    radius = '&distance=' + rad;
+  }
 
   if (!(ageBaby && ageYoung && ageAdult && ageSenior) && !(!ageBaby && !ageYoung && !ageAdult && !ageSenior)) {
     age += '&age=';
@@ -110142,7 +110148,7 @@ function fetchPets(e) {
 
   var options = {
     'method': 'GET',
-    'url': 'https://api.petfinder.com/v2/animals?' + type + location + age + gender + size,
+    'url': 'https://api.petfinder.com/v2/animals?' + type + location + radius + age + gender + size,
     'headers': {
       'Authorization': 'Bearer ' + PetFinder_Token
     }
@@ -110194,7 +110200,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52308" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57908" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

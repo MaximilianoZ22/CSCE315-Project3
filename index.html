@@ -52,12 +52,19 @@
     <div class="container mt-4">
         <form id="pet-form">
             <div class="form-group mb-4">
-                <label class="color-white" for="animal">Animal</label>
-                <select id="animal" class="form-control form-control-lg">
-                </select>
+                <label class="color-black" for="animal">Animal</label>
+                <select id="animal" class="form-control form-control-lg"></select>
             </div>
-            <div class="form-group mb-4">
-              <input type="text" id="zip" class="form-control form-control-lg" placeholder="Enter Your Zipcode">
+            <label class="color-black">Zipcode / Radius</label>
+            <div class="input-group mb-4">
+              <input type="text" id="zip" class="form-control" placeholder="Enter Your Zipcode">
+              <select id="rad" class="form-control">
+                <option value="50">50 miles</option>
+                <option value="100">100 miles</option>
+                <option value="150">150 miles</option>
+                <option value="200">200 miles</option>
+                <option value="any">Any</option>
+              </select>
             </div>
             <div class="form-group mb-4">
                 <div class="col-sm-2">Age</div>
