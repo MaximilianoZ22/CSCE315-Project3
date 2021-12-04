@@ -21,3 +21,4 @@ function loadPetTypes(petTypes) {
     select.add(option);
   });
 }
+

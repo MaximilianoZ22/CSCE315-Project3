@@ -944,19 +944,19 @@ var populateDogSelect = function populateDogSelect(breeds) {
 
 var getDogByBreed = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.default.mark(function _callee2(breedID) {
+    var rawData;
     return _regeneratorRuntime.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return fetch(baseAPIURL + '/images/search?include_breed-1&breed + breedID').then(function (data) {
-              return data.json();
-            });
+            return fetch(baseAPIURL + "/images/search?include_breed-1&breed + ".concat(breedID));
 
           case 2:
-            console.log(data);
+            rawData = _context2.sent;
+            return _context2.abrupt("return", rawData.json());
 
-          case 3:
+          case 4:
           case "end":
             return _context2.stop();
         }
@@ -969,10 +969,37 @@ var getDogByBreed = /*#__PURE__*/function () {
   };
 }();
 
-var changeDoggo = function changeDoggo() {
-  console.log(event.target.value);
-  getDogByBreed(event.target.value);
-};
+document.querySelector("#Dog").addEventListener("change", /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.default.mark(function _callee3(event) {
+    return _regeneratorRuntime.default.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.t0 = console;
+            _context3.next = 3;
+            return getDogByBreed(event.target.value);
+
+          case 3:
+            _context3.t1 = _context3.sent;
+
+            _context3.t0.log.call(_context3.t0, _context3.t1);
+
+          case 5:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function (_x2) {
+    return _ref3.apply(this, arguments);
+  };
+}());
+/* const changeDoggo = () => {
+ console.log(event.target.value); 
+ //getDogByBreed(event.target.value);
+} */
 
 fetchDogBreeds();
 /*
@@ -1025,7 +1052,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58798" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56260" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

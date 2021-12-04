@@ -25,14 +25,18 @@ const populateDogSelect = (breeds) => {
 }
 
 const getDogByBreed = async (breedID) => {
- await fetch(baseAPIURL+'/images/search?include_breed-1&breed + breedID').then((data) => data.json())
- console.log(data);
+  let rawData = await fetch(baseAPIURL+`/images/search?include_breed-1&breed + ${breedID}`);
+  return rawData.json();
 }
 
-const changeDoggo = () => {
+document.querySelector("#Dog").addEventListener("change", async (event) =>  {
+ console.log(await getDogByBreed(event.target.value));
+})
+
+/* const changeDoggo = () => {
  console.log(event.target.value); 
- getDogByBreed(event.target.value);
-}
+ //getDogByBreed(event.target.value);
+} */
 fetchDogBreeds();
 /*
 const petForm = document.querySelector('#pet-form');
