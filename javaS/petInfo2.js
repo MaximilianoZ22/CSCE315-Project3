@@ -33,31 +33,7 @@ document.querySelector("#Dog").addEventListener("change", async (event) =>  {
  console.log(await getDogByBreed(event.target.value));
 })
 
-/* const changeDoggo = () => {
- console.log(event.target.value); 
- //getDogByBreed(event.target.value);
-} */
+
 fetchDogBreeds();
-/*
-const petForm = document.querySelector('#pet-form');
 
-petForm.addEventListener('submit', fetchPets);
-
-//fetch pets from the api for adoption
-
-function fetchPets (e){
- e.preventDefault();
-
- //get user input 
- const animal = document.querySelector('#animal').value;
- const zip = document.querySelector('#zip').value;
-
-
- //fetch pets
-
- fetchJsonp('http://api.petfinder.com/pet.find?format=json&key=nsubXCNxX0mFyCKZZIqOrUjhfA5j4E9bmSMApKLR0ZpvJFqT8w&animal=${aanimal}&location=${zip}&callback=callback', {jsonpCallbackFunction: 'callback'})
- .then(ress => ress.json())
- .then(data => console.log(data))
- .catch(error => console.log(error));
-} */
 
