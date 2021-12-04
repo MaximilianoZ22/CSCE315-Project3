@@ -63,6 +63,7 @@ function fetchPets (e){
 
   const animal = document.querySelector('#animal').value;
   const zip = document.querySelector('#zip').value;
+  const rad = document.querySelector('#rad').value;
   
   const ageBaby = document.querySelector('#baby').checked;
   const ageYoung = document.querySelector('#young').checked;
@@ -79,9 +80,14 @@ function fetchPets (e){
   var type = 'type=' + animal;
   
   var location = '&location=' + zip;
+  var radius = '';
   var age = '';
   var gender = '';
   var size = '';
+
+  if(rad != "any") {
+    radius = '&distance=' + rad;
+  }
 
   if(!(ageBaby && ageYoung && ageAdult && ageSenior) && !(!ageBaby && !ageYoung && !ageAdult && !ageSenior)) {
     age += '&age=';
@@ -172,7 +178,7 @@ function fetchPets (e){
   var request = require('request');
   var options = {
     'method': 'GET',
-    'url': 'https://api.petfinder.com/v2/animals?' + type + location + age + gender + size,
+    'url': 'https://api.petfinder.com/v2/animals?' + type + location + radius + age + gender + size,
     'headers': {
       'Authorization': 'Bearer ' + PetFinder_Token
     }
