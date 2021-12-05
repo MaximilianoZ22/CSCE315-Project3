@@ -24,12 +24,20 @@ const populateDogSelect = (breeds) => {
  })
 }
 
+const fillDogImg = (imageUrl) => {
+  document.querySelector('#dog-Image').setAttribute('src',imageUrl);
+}
+
 const getDogByBreed = async (breedID) => {
-  let rawData = await fetch(baseAPIURL+`/images/search?include_breed-1&breed + ${breedID}`);
-  return rawData.json();
+  console.log(breedID);
+  let [ rawData ] = await fetch(baseAPIURL+'/images/search?include_breed=1&breed_id=' + breedID).then((rawData) => rawData.json());
+  const {url:imgURL,breeds} = rawData;
+  fillDogImg(imgURL);
+  console.log(rawData);
 }
 
 document.querySelector("#Dog").addEventListener("change", async (event) =>  {
+  console.log(event.target.value);
  console.log(await getDogByBreed(event.target.value));
 })
 

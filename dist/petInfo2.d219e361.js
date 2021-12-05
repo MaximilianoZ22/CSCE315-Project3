@@ -891,6 +891,18 @@ var _regeneratorRuntime = _interopRequireDefault(require("regenerator-runtime"))
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -942,21 +954,33 @@ var populateDogSelect = function populateDogSelect(breeds) {
   });
 };
 
+var fillDogImg = function fillDogImg(imageUrl) {
+  document.querySelector('#dog-Image').setAttribute('src', imageUrl);
+};
+
 var getDogByBreed = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.default.mark(function _callee2(breedID) {
-    var rawData;
+    var _yield$fetch$then, _yield$fetch$then2, rawData, imgURL, breeds;
+
     return _regeneratorRuntime.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.next = 2;
-            return fetch(baseAPIURL + "/images/search?include_breed-1&breed + ".concat(breedID));
+            console.log(breedID);
+            _context2.next = 3;
+            return fetch(baseAPIURL + '/images/search?include_breed=1&breed_id=' + breedID).then(function (rawData) {
+              return rawData.json();
+            });
 
-          case 2:
-            rawData = _context2.sent;
-            return _context2.abrupt("return", rawData.json());
+          case 3:
+            _yield$fetch$then = _context2.sent;
+            _yield$fetch$then2 = _slicedToArray(_yield$fetch$then, 1);
+            rawData = _yield$fetch$then2[0];
+            imgURL = rawData.url, breeds = rawData.breeds;
+            fillDogImg(imgURL);
+            console.log(rawData);
 
-          case 4:
+          case 9:
           case "end":
             return _context2.stop();
         }
@@ -975,16 +999,17 @@ document.querySelector("#Dog").addEventListener("change", /*#__PURE__*/function 
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
+            console.log(event.target.value);
             _context3.t0 = console;
-            _context3.next = 3;
+            _context3.next = 4;
             return getDogByBreed(event.target.value);
 
-          case 3:
+          case 4:
             _context3.t1 = _context3.sent;
 
             _context3.t0.log.call(_context3.t0, _context3.t1);
 
-          case 5:
+          case 6:
           case "end":
             return _context3.stop();
         }
@@ -1025,7 +1050,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53835" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53084" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
