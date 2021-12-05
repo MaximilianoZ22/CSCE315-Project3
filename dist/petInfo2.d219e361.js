@@ -954,12 +954,65 @@ var populateDogSelect = function populateDogSelect(breeds) {
   });
 };
 
+var populateDescription = function populateDescription(_ref2) {
+  var label = _ref2.label,
+      value = _ref2.value;
+  var desc = document.createElement('dt');
+  desc.textContent = label;
+  var descVal = document.createElement('dd');
+  descVal.textContent = value;
+  document.querySelector('#dogDescription').appendChild(desc);
+  document.querySelector('#dogDescription').appendChild(descVal);
+};
+
+var fillDogDescription = function fillDogDescription(_ref3) {
+  var bredFor = _ref3.bred_for,
+      breedGroup = _ref3.breed_group,
+      lifeSpan = _ref3.life_span,
+      name = _ref3.name,
+      height = _ref3.height,
+      temperament = _ref3.temperament,
+      weight = _ref3.weight;
+  populateDescription({
+    label: 'Name',
+    value: name
+  });
+  populateDescription({
+    label: 'Breed Group',
+    value: breedGroup
+  });
+  populateDescription({
+    label: 'Bred For',
+    value: bredFor
+  });
+  populateDescription({
+    label: 'Breed Group',
+    value: breedGroup
+  });
+  populateDescription({
+    label: 'Life Span',
+    value: lifeSpan
+  });
+  populateDescription({
+    label: 'Height [cm]',
+    value: height.metric
+  });
+  populateDescription({
+    label: 'Weight [kg]',
+    value: weight.metric
+  });
+  populateDescription({
+    label: 'Temperament',
+    value: temperament
+  });
+};
+
 var fillDogImg = function fillDogImg(imageUrl) {
   document.querySelector('#dog-Image').setAttribute('src', imageUrl);
 };
 
 var getDogByBreed = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.default.mark(function _callee2(breedID) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.default.mark(function _callee2(breedID) {
     var _yield$fetch$then, _yield$fetch$then2, rawData, imgURL, breeds;
 
     return _regeneratorRuntime.default.wrap(function _callee2$(_context2) {
@@ -979,8 +1032,9 @@ var getDogByBreed = /*#__PURE__*/function () {
             imgURL = rawData.url, breeds = rawData.breeds;
             fillDogImg(imgURL);
             console.log(rawData);
+            fillDogDescription(breeds[0]);
 
-          case 9:
+          case 10:
           case "end":
             return _context2.stop();
         }
@@ -989,12 +1043,12 @@ var getDogByBreed = /*#__PURE__*/function () {
   }));
 
   return function getDogByBreed(_x) {
-    return _ref2.apply(this, arguments);
+    return _ref4.apply(this, arguments);
   };
 }();
 
 document.querySelector("#Dog").addEventListener("change", /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.default.mark(function _callee3(event) {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.default.mark(function _callee3(event) {
     return _regeneratorRuntime.default.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -1018,7 +1072,7 @@ document.querySelector("#Dog").addEventListener("change", /*#__PURE__*/function 
   }));
 
   return function (_x2) {
-    return _ref3.apply(this, arguments);
+    return _ref5.apply(this, arguments);
   };
 }());
 fetchDogBreeds();
@@ -1050,7 +1104,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53084" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59439" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
