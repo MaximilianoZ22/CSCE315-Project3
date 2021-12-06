@@ -111125,7 +111125,7 @@ var options = {
 
 var fetchCatBreeds = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.default.mark(function _callee() {
-    var response, BreedDogs;
+    var response, BreedCats;
     return _regeneratorRuntime.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -111139,9 +111139,9 @@ var fetchCatBreeds = /*#__PURE__*/function () {
             return response.json();
 
           case 5:
-            BreedDogs = _context.sent;
-            populateCatSelect(BreedDogs);
-            console.log(BreedDogs);
+            BreedCats = _context.sent;
+            populateCatSelect(BreedCats);
+            console.log(BreedCats);
 
           case 8:
           case "end":
@@ -111181,6 +111181,7 @@ var populateDescription = function populateDescription(_ref2) {
   var desc = document.createElement('dt');
   desc.textContent = label;
   var descVal = document.createElement('dd');
+  descVal.id = "Cat-".concat(label);
   descVal.textContent = value;
   document.querySelector('#catDescription').appendChild(desc);
   document.querySelector('#catDescription').appendChild(descVal);
@@ -111342,8 +111343,10 @@ var fillCatDescription = function fillCatDescription(_ref4) {
   });
 };
 
-var fillCatImg = function fillCatImg(imageUrl) {
+var fillCatImg = function fillCatImg(imageUrl, name) {
   document.querySelector('#cat-Image').setAttribute('src', imageUrl);
+  document.querySelector('#cat-Image').setAttribute('alt', "Picture of: " + name); //Accesibility Feature name: Image Alternative Text
+  //accesibility feature incase the image does not load there is a description of the image
 };
 
 var getCatByBreed = /*#__PURE__*/function () {
@@ -111365,7 +111368,7 @@ var getCatByBreed = /*#__PURE__*/function () {
             _yield$fetch$then2 = _slicedToArray(_yield$fetch$then, 1);
             rawData = _yield$fetch$then2[0];
             imgURL = rawData.url, breeds = rawData.breeds;
-            fillCatImg(imgURL);
+            fillCatImg(imgURL, breeds[0].name);
             console.log(rawData);
             fillCatDescription(breeds[0]);
 
@@ -111411,6 +111414,15 @@ document.querySelector("#Cat").addEventListener("change", /*#__PURE__*/function 
     return _ref6.apply(this, arguments);
   };
 }());
+
+var speakDesc = function speakDesc() {
+  var descriptionValue = document.querySelector('#Cat-Description').innerText;
+  var name = document.querySelector('#Cat-Name').innerText;
+  speechSynthesis.speak(new SpeechSynthesisUtterance("The cat you picked is ".concat(name, ". ").concat(descriptionValue)));
+};
+
+document.querySelector('#cat-Image').addEventListener("click", speakDesc);
+document.querySelector('.catImage > .fa-volume-up').addEventListener("click", speakDesc);
 fetchCatBreeds();
 },{"regenerator-runtime":"node_modules/regenerator-runtime/runtime-module.js","request":"node_modules/request/index.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -111440,7 +111452,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61053" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64331" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

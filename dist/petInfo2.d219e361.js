@@ -962,6 +962,7 @@ var populateDescription = function populateDescription(_ref2) {
   desc.textContent = label;
   var descVal = document.createElement('dd');
   descVal.textContent = value;
+  descVal.id = label;
   document.querySelector('#dogDescription').appendChild(desc);
   document.querySelector('#dogDescription').appendChild(descVal);
 };
@@ -1017,8 +1018,10 @@ var fillDogDescription = function fillDogDescription(_ref3) {
   });
 };
 
-var fillDogImg = function fillDogImg(imageUrl) {
+var fillDogImg = function fillDogImg(imageUrl, name) {
   document.querySelector('#dog-Image').setAttribute('src', imageUrl);
+  document.querySelector('#dog-Image').setAttribute('alt', "Picture of: " + name); //Accesibility Feature name: Image Alternative Text
+  //accesibility feature incase the image does not load there is a description of the image
 };
 
 var getDogByBreed = /*#__PURE__*/function () {
@@ -1040,7 +1043,7 @@ var getDogByBreed = /*#__PURE__*/function () {
             _yield$fetch$then2 = _slicedToArray(_yield$fetch$then, 1);
             rawData = _yield$fetch$then2[0];
             imgURL = rawData.url, breeds = rawData.breeds;
-            fillDogImg(imgURL);
+            fillDogImg(imgURL, breeds[0].name);
             console.log(rawData);
             fillDogDescription(breeds[0]);
 
@@ -1086,6 +1089,15 @@ document.querySelector("#Dog").addEventListener("change", /*#__PURE__*/function 
     return _ref5.apply(this, arguments);
   };
 }());
+
+var speakDesc = function speakDesc() {
+  var name = document.querySelector('#Name').innerText;
+  var behavior = document.querySelector('#Temperament').innerText;
+  speechSynthesis.speak(new SpeechSynthesisUtterance("The name of the Dog you picked is ".concat(name, " and it has a ").concat(behavior, " temperament")));
+};
+
+document.querySelector('#dog-Image').addEventListener("click", speakDesc);
+document.querySelector('.dogImage > .fa-volume-up').addEventListener("click", speakDesc);
 fetchDogBreeds();
 },{"regenerator-runtime":"node_modules/regenerator-runtime/runtime-module.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -1115,7 +1127,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61053" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64331" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

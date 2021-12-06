@@ -30,6 +30,7 @@ const populateDescription = ({label, value}) =>{
   desc.textContent = label;
   const descVal = document.createElement('dd');
   descVal.textContent = value;
+  descVal.id = label;
   document.querySelector('#dogDescription').appendChild(desc);
   document.querySelector('#dogDescription').appendChild(descVal);
 }
@@ -84,15 +85,18 @@ const fillDogDescription = ({bred_for: bredFor, breed_group: breedGroup, life_sp
 }
 
 
-const fillDogImg = (imageUrl) => {
+const fillDogImg = (imageUrl,name) => {
   document.querySelector('#dog-Image').setAttribute('src',imageUrl);
+  document.querySelector('#dog-Image').setAttribute('alt',"Picture of: "+name);
+  //Accesibility Feature name: Image Alternative Text
+  //accesibility feature incase the image does not load there is a description of the image
 }
 
 const getDogByBreed = async (breedID) => {
   console.log(breedID);
   let [ rawData ] = await fetch(baseAPIURL+'/images/search?include_breed=1&breed_id=' + breedID).then((rawData) => rawData.json());
   const {url:imgURL,breeds} = rawData;
-  fillDogImg(imgURL);
+  fillDogImg(imgURL,breeds[0].name);
   console.log(rawData);
   fillDogDescription(breeds[0]);
 }
@@ -102,6 +106,16 @@ document.querySelector("#Dog").addEventListener("change", async (event) =>  {
   console.log(event.target.value);
  console.log(await getDogByBreed(event.target.value));
 })
+
+const speakDesc = () => {
+  const name = document.querySelector('#Name').innerText;
+  const behavior = document.querySelector('#Temperament').innerText;
+  speechSynthesis.speak(new SpeechSynthesisUtterance(`The name of the Dog you picked is ${name} and it has a ${behavior} temperament`));
+
+}
+
+document.querySelector('#dog-Image').addEventListener("click", speakDesc);
+document.querySelector('.dogImage > .fa-volume-up').addEventListener("click", speakDesc);
 
 
 fetchDogBreeds();
