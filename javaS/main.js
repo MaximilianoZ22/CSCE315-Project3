@@ -78,7 +78,6 @@ function fetchPets (e){
   const sizeLarge = document.querySelector('#large').checked;
 
   var type = 'type=' + animal;
-  
   var location = '&location=' + zip;
   var radius = '';
   var age = '';
