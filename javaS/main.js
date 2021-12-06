@@ -41,6 +41,7 @@ function onPageLoad (e) {
       if (error) throw new Error(error);
       let typeres_json = JSON.parse(response.body);
       loadPetTypes(typeres_json.types);
+      console.log(typeres_json);
     });
   });
 
@@ -207,6 +208,8 @@ function showAnimals(animals) {
           <h4>${pet.name} (${pet.age}) (${pet.gender}) (${pet.size})</h4>
           <p>${pet.breeds.primary}</p>
           <p>${pet.contact.address.address1}, ${pet.contact.address.city} ${pet.contact.address.state} ${pet.contact.address.postcode}</p>
+          <p>Phone Number ${pet.contact.phone} </p>
+          <p>Email Address: ${pet.contact.email}</p>
         </div>
         <div class = "col-sm-6">
           ${pet.photos[0] ? `

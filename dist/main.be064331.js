@@ -110358,6 +110358,7 @@ function onPageLoad(e) {
       if (error) throw new Error(error);
       var typeres_json = JSON.parse(response.body);
       loadPetTypes(typeres_json.types);
+      console.log(typeres_json);
     });
   });
 } // Load available pet drop down
@@ -110505,7 +110506,7 @@ function showAnimals(animals) {
   animals.forEach(function (pet) {
     var div = document.createElement('div');
     div.classList.add('card', 'card-body', 'mb-3');
-    div.innerHTML = "\n      <div class=\"row\">\n        <div class = \"col-sm-6\">\n          <h4>".concat(pet.name, " (").concat(pet.age, ") (").concat(pet.gender, ") (").concat(pet.size, ")</h4>\n          <p>").concat(pet.breeds.primary, "</p>\n          <p>").concat(pet.contact.address.address1, ", ").concat(pet.contact.address.city, " ").concat(pet.contact.address.state, " ").concat(pet.contact.address.postcode, "</p>\n        </div>\n        <div class = \"col-sm-6\">\n          ").concat(pet.photos[0] ? "\n          <img class=\"img-fluid rounded-circle mt-2\" src=\"".concat(pet.photos[0].medium, "\">\n          ") : "", "\n        </div>\n      </div>\n    ");
+    div.innerHTML = "\n      <div class=\"row\">\n        <div class = \"col-sm-6\">\n          <h4>".concat(pet.name, " (").concat(pet.age, ") (").concat(pet.gender, ") (").concat(pet.size, ")</h4>\n          <p>").concat(pet.breeds.primary, "</p>\n          <p>").concat(pet.contact.address.address1, ", ").concat(pet.contact.address.city, " ").concat(pet.contact.address.state, " ").concat(pet.contact.address.postcode, "</p>\n          <p>Phone Number ").concat(pet.contact.phone, " </p>\n          <p>Email Address: ").concat(pet.contact.email, "</p>\n        </div>\n        <div class = \"col-sm-6\">\n          ").concat(pet.photos[0] ? "\n          <img class=\"img-fluid rounded-circle mt-2\" src=\"".concat(pet.photos[0].medium, "\">\n          ") : "", "\n        </div>\n      </div>\n    ");
     results.appendChild(div);
   });
 }
