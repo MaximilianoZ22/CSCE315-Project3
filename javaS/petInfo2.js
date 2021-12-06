@@ -109,8 +109,17 @@ document.querySelector("#Dog").addEventListener("change", async (event) =>  {
 
 const speakDesc = () => {
   const name = document.querySelector('#Name').innerText;
-  const behavior = document.querySelector('#Temperament').innerText;
-  speechSynthesis.speak(new SpeechSynthesisUtterance(`The name of the Dog you picked is ${name} and it has a ${behavior} temperament`));
+  let behavior = document.querySelector('#Temperament').innerText;
+  let script = `The name of the Dog you picked is ${name} and it has a`;
+  if (['a', 'e', 'i', 'o', 'u'].indexOf(behavior.toLowerCase()[0]) !== -1)
+    script += 'n';
+  try {
+    let splitted = behavior.split(", ");
+    splitted.splice(splitted.length-1, 0, "and");
+    behavior = splitted.join(", ");
+  } catch (ignore) {}
+  script += ` ${behavior} temperament`;
+  speechSynthesis.speak(new SpeechSynthesisUtterance(script));
 
 }
 

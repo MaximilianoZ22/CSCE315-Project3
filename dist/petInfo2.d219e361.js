@@ -1093,7 +1093,17 @@ document.querySelector("#Dog").addEventListener("change", /*#__PURE__*/function 
 var speakDesc = function speakDesc() {
   var name = document.querySelector('#Name').innerText;
   var behavior = document.querySelector('#Temperament').innerText;
-  speechSynthesis.speak(new SpeechSynthesisUtterance("The name of the Dog you picked is ".concat(name, " and it has a ").concat(behavior, " temperament")));
+  var script = "The name of the Dog you picked is ".concat(name, " and it has a");
+  if (['a', 'e', 'i', 'o', 'u'].indexOf(behavior.toLowerCase()[0]) !== -1) script += 'n';
+
+  try {
+    var splitted = behavior.split(", ");
+    splitted.splice(splitted.length - 1, 0, "and");
+    behavior = splitted.join(", ");
+  } catch (ignore) {}
+
+  script += " ".concat(behavior, " temperament");
+  speechSynthesis.speak(new SpeechSynthesisUtterance(script));
 };
 
 document.querySelector('#dog-Image').addEventListener("click", speakDesc);
