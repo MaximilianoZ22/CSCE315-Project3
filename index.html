@@ -23,19 +23,24 @@
         color: white
       }
     
-      body {
-              padding: 25px;
-              background-color: white;
-              color: black;
-              font-size: 25px;
-            }
-            
-            .dark-mode {
-              background-color: black;
-              color: white;
-            }
+     
             </style>  
- 
+ <style>
+  .pagination {
+    display: inline-block;
+  }
+  
+  .pagination a {
+    color: black;
+    float: left;
+   
+    text-decoration: none;
+  }
+  
+  
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+</style>
 
 </head>
 <body BGCOLOR = "WHITE" TEXT = " BLACK">
@@ -181,13 +186,19 @@
         
     <script src="javaS/main.js"></script>
     
-    <br>
-    <button onclick="myFunction()">Toggle mode</button>
-  <script>
-    function myFunction() {
-       var element = document.body;
-       element.classList.toggle("dark-mode");
-    }
+    
+    
+
     </script>
+    </body>
+    </div>
+    <div class="pagination">
+      <a href="#">&laquo;</a>
+      <a href="#">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">4</a>
+      <a href="#">&raquo;</a>
+    </div>
 </body>
 </html>
