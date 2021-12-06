@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +8,7 @@
     <title>Aggies Adopt</title>
     <style>
       body{
+        
       background-image: url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1586&q=80');
       height: 200%;
       /* Center and scale the image nicely */
@@ -22,11 +22,27 @@
       .color-white {
         color: white
       }
-    </style>
+    
+      body {
+              padding: 25px;
+              background-color: white;
+              color: black;
+              font-size: 25px;
+            }
+            
+            .dark-mode {
+              background-color: black;
+              color: white;
+            }
+            </style>  
+ 
+
+</head>
+<body BGCOLOR = "WHITE" TEXT = " BLACK">
+
 </head>
 
 <body>
-  
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="index.html">Petfinder</a>
@@ -50,7 +66,6 @@
       </div>
     </div>
   </nav>
-  
 
     <div class="container mt-4">
         <form id="pet-form">
@@ -146,27 +161,33 @@
         <div id="results"></div>
     </div>
     <br>
-    <br>
-    <br>
-    <label for="Speech Recognition">Speech Recognition</label>
-    <input type="text" name="" id="speechToText" placeholder="Search" onclick="record()">
-    
-<script>
+        <br>
+        <label for="Speech Recognition">Speech Recognition</label>
+        <input type="text" name="" id="speechToText" placeholder="Search" onclick="record()">
+        <script>
+          function record() {
+              var recognition = new webkitSpeechRecognition();
+              recognition.lang = "en-GB";
   
-function record() {
-    var recognition = new webkitSpeechRecognition();
-    recognition.lang = "en-GB";
-
-    recognition.onresult = function(event) {
+              recognition.onresult = function(event) {
+                  // console.log(event);
+                  document.getElementById('speechToText').value = event.results[0][0].transcript;
+              }
+              recognition.start();
+  
+          }
+      </script>
+        <br>
         
-        document.getElementById('speechToText').value = event.results[0][0].transcript;
-    }
-    recognition.start();
-
-}
-</script>
-
     <script src="javaS/main.js"></script>
     
+    <br>
+    <button onclick="myFunction()">Toggle mode</button>
+  <script>
+    function myFunction() {
+       var element = document.body;
+       element.classList.toggle("dark-mode");
+    }
+    </script>
 </body>
 </html>
