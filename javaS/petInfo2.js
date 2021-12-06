@@ -32,7 +32,15 @@ const populateDescription = ({label, value}) =>{
   document.querySelector('#dogDescription').appendChild(desc);
   document.querySelector('#dogDescription').appendChild(descVal);
 }
+const clearDogDescription = () => {
+  const descElem = document.querySelector('#dogDescription');
+  while(descElem.firstChild) {
+    descElem.removeChild(descElem.firstChild);
+  }
+}
 const fillDogDescription = ({bred_for: bredFor, breed_group: breedGroup, life_span: lifeSpan, name, height, temperament, weight}) => {
+  clearDogDescription();
+
   populateDescription({
     label: 'Name',
     value: name

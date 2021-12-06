@@ -965,6 +965,14 @@ var populateDescription = function populateDescription(_ref2) {
   document.querySelector('#dogDescription').appendChild(descVal);
 };
 
+var clearDogDescription = function clearDogDescription() {
+  var descElem = document.querySelector('#dogDescription');
+
+  while (descElem.firstChild) {
+    descElem.removeChild(descElem.firstChild);
+  }
+};
+
 var fillDogDescription = function fillDogDescription(_ref3) {
   var bredFor = _ref3.bred_for,
       breedGroup = _ref3.breed_group,
@@ -973,6 +981,7 @@ var fillDogDescription = function fillDogDescription(_ref3) {
       height = _ref3.height,
       temperament = _ref3.temperament,
       weight = _ref3.weight;
+  clearDogDescription();
   populateDescription({
     label: 'Name',
     value: name
@@ -1104,7 +1113,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59439" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56573" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
