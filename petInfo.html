@@ -11,7 +11,10 @@
       background-image: url('https://images.unsplash.com/photo-1546377791-2e01b4449bf0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1333&q=80');
       height: 500px;
       background-size: 500px;
-      width: 200%;
+      padding-left: 250px;
+      padding-right: 250px;
+      padding-top: 100px;
+      width: 100%;
       /* Center and scale the image nicely */
       /* background-position: center; */
       background-repeat: no-repeat;
@@ -37,6 +40,22 @@
     }
     .dogDesc{
       text-align: center;
+    }
+    .catImage{
+      width: 50%;
+      margin: auto;
+      text-align: center;
+      padding-top: 10px;
+      cursor: pointer;
+      height: 400px;
+
+    }
+    .catDesc{
+      text-align: center;
+    }
+
+    .dogInfo, .catInfo {
+      display: none;
     }
     </style>
 </head>
@@ -66,11 +85,11 @@
     </div>
   </nav>
 
-  <div class="container mt-4 searchBar">
+  <div class="searchBar">
     <label for="Cat">Cat</label>
-                <select id="Cat" class="form-control form-control-lg mb-3">
-                  <option>Select your cat</option>
-                </select>
+      <select id="Cat" class="form-control form-control-lg mb-3 Cat">
+        <option>Select your cat</option>
+      </select>
     <label for="Dog">Dog</label>
       <select id="Dog" class="form-control form-control-lg mb-3 breed-select">
         <option>Select your dog</option>
@@ -84,11 +103,20 @@
     <div class ="dogDesc">
       <dl id="dogDescription">
     </div>
+  </div>
+  <div class = "catInfo">
+    <div class ="catImage"> 
+      <img id="cat-Image" src="" alt='cat'>
+    </div>
+    <div class ="catDesc">
+      <dl id="catDescription">
+    </div>
 
     </dl>
   </div>
 
   <script src="javaS/petInfo.js"></script>
   <script src="javaS/petInfo2.js" type="text/javascript"></script>
+  <script src="https://kit.fontawesome.com/26fa42cbd6.js" crossorigin="anonymous"></script>
 </body>
 </html>

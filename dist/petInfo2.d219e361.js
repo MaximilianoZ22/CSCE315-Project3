@@ -927,8 +927,9 @@ var fetchDogBreeds = /*#__PURE__*/function () {
           case 5:
             BreedDogs = _context.sent;
             populateDogSelect(BreedDogs);
+            console.log(BreedDogs);
 
-          case 7:
+          case 8:
           case "end":
             return _context.stop();
         }
@@ -1062,17 +1063,18 @@ document.querySelector("#Dog").addEventListener("change", /*#__PURE__*/function 
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
+            document.querySelector(".dogInfo").style.display = "block";
             console.log(event.target.value);
             _context3.t0 = console;
-            _context3.next = 4;
+            _context3.next = 5;
             return getDogByBreed(event.target.value);
 
-          case 4:
+          case 5:
             _context3.t1 = _context3.sent;
 
             _context3.t0.log.call(_context3.t0, _context3.t1);
 
-          case 6:
+          case 7:
           case "end":
             return _context3.stop();
         }
@@ -1113,7 +1115,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56573" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61053" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -8,6 +8,7 @@ const fetchDogBreeds = async() => {
  const response = await fetch('https://api.thedogapi.com/v1/breeds');
  const BreedDogs = await response.json();
  populateDogSelect(BreedDogs);
+ console.log(BreedDogs);
 }
 
 const populateDogSelect = (breeds) => {
@@ -97,6 +98,7 @@ const getDogByBreed = async (breedID) => {
 }
 
 document.querySelector("#Dog").addEventListener("change", async (event) =>  {
+  document.querySelector(".dogInfo").style.display = "block";
   console.log(event.target.value);
  console.log(await getDogByBreed(event.target.value));
 })
