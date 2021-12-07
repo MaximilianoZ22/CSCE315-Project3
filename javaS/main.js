@@ -3,7 +3,7 @@ const petForm = document.querySelector('#pet-form');
 
 // event listeners
 window.addEventListener('load', onPageLoad);
-petForm.addEventListener('submit', fetchPets); 
+petForm.addEventListener('submit', fetchPets);
 
 var PetFinder_Token;
 
@@ -204,7 +204,10 @@ function showAnimals(animals) {
     div.innerHTML = `
       <div class="row">
         <div class = "col-sm-6">
-          <h4>${pet.name} (${pet.age}) (${pet.gender}) (${pet.size})</h4>
+          <h4>${pet.name}</h4>
+          <p>Age: (${pet.age})<p>
+          <p>Gender: (${pet.gender})<p>
+          <p>Size: (${pet.size})<p>
           <p>${pet.breeds.primary}</p>
           <p>${pet.contact.address.address1}, ${pet.contact.address.city} ${pet.contact.address.state} ${pet.contact.address.postcode}</p>
         </div>
@@ -218,4 +221,6 @@ function showAnimals(animals) {
 
     results.appendChild(div);
   });
+
+
 }
