@@ -997,10 +997,6 @@ var fillDogDescription = function fillDogDescription(_ref3) {
     value: bredFor
   });
   populateDescription({
-    label: 'Breed Group',
-    value: breedGroup
-  });
-  populateDescription({
     label: 'Life Span',
     value: lifeSpan
   });
@@ -1137,7 +1133,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50668" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50712" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

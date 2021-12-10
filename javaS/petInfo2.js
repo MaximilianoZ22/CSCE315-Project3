@@ -59,11 +59,6 @@ const fillDogDescription = ({bred_for: bredFor, breed_group: breedGroup, life_sp
   })
 
   populateDescription({
-    label: 'Breed Group',
-    value: breedGroup
-  })
-
-  populateDescription({
     label: 'Life Span',
     value: lifeSpan
   })
